@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="button1" id="mainpbtn" style="cursor: pointer;">
+        <p class="text1">На главную</p>
+    </div>
+    <div class="entry-form-div">
+        <a class="text1" style="font-size: 30px; margin-bottom: 45px;">Вход в аккаунт</a>
+        <form class="entry-form" method="post">
+            <p>
+                <input class="form-input" name="login" type="text" placeholder="Логин или адрес эл.почты" required><br>
+            </p>
+            <p>
+                <input class="form-input" name="password" type="password" placeholder="Пароль" required><br>
+            </p>
+            <p>
+                <button class="submit-button" type="submit">Войти</button>
+            </p>
+        </form>
+        <div name="afterformtext">
+            <p class="text1" style="margin-top: 0px;">
+                Ещё не зарегистрированы? 
+                <a href="{{ url_for('register')}}" style="color: lightblue;">Сделайте</a> 
+                это сейчас!
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('mainpbtn').addEventListener('click', function() {
+        window.location.href = "{{ url_for('main') }}";
+    });
+</script>
+</html>
