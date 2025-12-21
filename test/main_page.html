@@ -1,18 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css"/>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <title>Регистрация</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        .step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #ddd;
+            z-index: -1;
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        .step.active .step-number {
+            background: #4CAF50;
+            color: white;
+        }
+        .step.active:after {
+            background: #4CAF50;
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .required::after {
+            content: " *";
+            color: red;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input:invalid, select:invalid {
+            border-color: #ff6b6b;
+        }
+        .btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .btn-prev {
+            background: #6c757d;
+        }
+        .btn-prev:hover {
+            background: #5a6268;
+        }
+        .error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="button1" id="entrybtn">
-        <p>Войти</p>
+    <div class="container">
+        <h1 style="text-align: center;">Регистрация</h1>
+        
+        <div class="steps">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div>Основные данные</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div>Контактные данные</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div>Дополнительно</div>
+            </div>
+        </div>
+
+        <form id="registrationForm">
+            <!-- Шаг 1 -->
+            <div class="form-step active" id="step-1">
+                <!-- Разделение ФИО на отдельные поля -->
+                <div class="form-group">
+                    <label for="lastName" class="required">Фамилия</label>
+                    <input type="text" id="lastName" name="lastName" required 
+                           pattern="[А-Яа-яЁё]+" 
+                           title="Только кириллические буквы">
+                    <div class="error" id="lastNameError">Введите корректную фамилию</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="firstName" class="required">Имя</label>
+                    <input type="text" id="firstName" name="firstName" required 
+                           pattern="[А-Яа-яЁё]+" 
+                           title="Только кириллические буквы">
+                    <div class="error" id="firstNameError">Введите корректное имя</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="middleName">Отчество</label>
+                    <input type="text" id="middleName" name="middleName" 
+                           pattern="[А-Яа-яЁё]*" 
+                           title="Только кириллические буквы">
+                    <div class="error" id="middleNameError">Введите корректное отчество</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob" class="required">Дата рождения</label>
+                    <input type="date" id="dob" name="dob" required max="2025-12-22">
+                    <div class="error" id="dobError">Укажите корректную дату</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category" class="required">Категория</label>
+                    <select id="category" name="category" required>
+                        <option value="">Выберите категорию</option>
+                        <option value="student">Студент</option>
+                        <option value="teacher">Преподаватель</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div class="form-step" id="step-2">
+                <div class="form-group">
+                    <label for="login" class="required">Логин</label>
+                    <input type="text" id="login" name="login" required 
+                           minlength="3" maxlength="20"
+                           pattern="[a-zA-Z0-9_]+"
+                           title="Только латинские буквы, цифры и символ _">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">Электронная почта</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="required">Пароль</label>
+                    <input type="password" id="password" name="password" required 
+                           minlength="8"
+                           title="Минимум 8 символов">
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div class="form-step" id="step-3">
+                <div class="form-group">
+                    <label for="phone" class="required">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required
+                           pattern="[\+]\d{11,14}"
+                           title="Пример: +79991234567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Адрес (необязательно)</label>
+                    <input type="text" id="address" name="address">
+                </div>
+            </div>
+
+            <div class="form-navigation" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <button type="button" class="btn btn-prev" id="prevBtn" style="display: none;">Назад</button>
+                <button type="button" class="btn" id="nextBtn">Далее</button>
+                <button type="submit" class="btn" id="submitBtn" style="display: none;">Зарегистрироваться</button>
+            </div>
+        </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const steps = document.querySelectorAll('.form-step');
+            const stepIndicators = document.querySelectorAll('.step');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            let currentStep = 0;
+            
+            // Показать текущий шаг
+            function showStep(step) {
+                steps.forEach((s, index) => {
+                    s.classList.toggle('active', index === step);
+                });
+                
+                stepIndicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index <= step);
+                });
+                
+                prevBtn.style.display = step === 0 ? 'none' : 'inline-block';
+                nextBtn.style.display = step === steps.length - 1 ? 'none' : 'inline-block';
+                submitBtn.style.display = step === steps.length - 1 ? 'inline-block' : 'none';
+                
+                currentStep = step;
+            }
+            
+            // Проверка валидности шага
+            function validateStep(step) {
+                const stepElement = steps[step];
+                const inputs = stepElement.querySelectorAll('input, select');
+                let isValid = true;
+                
+                // Сброс предыдущих ошибок
+                inputs.forEach(input => {
+                    input.style.borderColor = '#ddd';
+                    const errorElement = document.getElementById(input.id + 'Error');
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                });
+                
+                // Проверка всех полей текущего шага
+                inputs.forEach(input => {
+                    // Проверка обязательных полей
+                    if (input.hasAttribute('required') && input.value.trim() === '') {
+                        isValid = false;
+                        input.style.borderColor = '#ff6b6b';
+                        return;
+                    }
+                    
+                    // Проверка полей ФИО на кириллицу (если заполнены)
+                    if (['lastName', 'firstName', 'middleName'].includes(input.id) && input.value.trim() !== '') {
+                        if (!/^[А-Яа-яЁё]+$/.test(input.value)) {
+                            isValid = false;
+                            input.style.borderColor = '#ff6b6b';
+                            document.getElementById(input.id + 'Error').style.display = 'block';
+                        }
+                    }
+                    
+                    // Проверка даты рождения
+                    if (input.id === 'dob' && input.value) {
+                        const dobDate = new Date(input.value);
+                        const maxDate = new Date('2025-12-22');
+                        if (dobDate > maxDate) {
+                            isValid = false;
+                            input.style.borderColor = '#ff6b6b';
+                            document.getElementById('dobError').style.display = 'block';
+                        }
+                    }
+                    
+                    // Проверка через HTML5 валидацию
+                    if (!input.checkValidity() && input.value.trim() !== '') {
+                        isValid = false;
+                        input.style.borderColor = '#ff6b6b';
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Обработчик кнопки "Далее"
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    showStep(currentStep + 1);
+                }
+            });
+            
+            // Обработчик кнопки "Назад"
+            prevBtn.addEventListener('click', () => {
+                showStep(currentStep - 1);
+            });
+            
+            // Обработчик отправки формы
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                if (validateStep(currentStep)) {
+                    // Собираем данные из всех полей
+                    const formData = {
+                        fullName: `${document.getElementById('lastName').value} ${document.getElementById('firstName').value} ${document.getElementById('middleName').value}`.trim(),
+                        dob: document.getElementById('dob').value,
+                        category: document.getElementById('category').value,
+                        login: document.getElementById('login').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        phone: document.getElementById('phone').value,
+                        address: document.getElementById('address').value
+                    };
+                    
+                    console.log('Данные регистрации:', formData);
+                    alert('Регистрация успешно завершена!');
+                    
+                    // Здесь можно отправить данные на сервер
+                    // fetch('/api/register', { method: 'POST', body: JSON.stringify(formData) });
+                }
+            });
+            
+            // Обработчики для сброса ошибок при вводе
+            document.querySelectorAll('input, select').forEach(input => {
+                input.addEventListener('input', () => {
+                    input.style.borderColor = '#ddd';
+                    const errorElement = document.getElementById(input.id + 'Error');
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Инициализация
+            showStep(0);
+        });
+    </script>
 </body>
 </html>

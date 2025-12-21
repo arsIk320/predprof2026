@@ -1,111 +1,95 @@
 @font-face {
     font-family: 'Nimbus';
-    src: url('D:/предпроф 2026/predprof2026/static/fonts/Nimbus Round/Nimbus Sans Round Medium.otf') format('opentype');
+    src: url('fonts/Nimbus Round/Nimbus Sans Round Medium.otf') format('opentype');
 }
-
-
-
 
 body {
     width: 100vw;
     height: 100vh;
-
     margin: 0;
-    
     background-color: #f1faee;
-
     display: flex;
     flex-direction: column;
+    font-family: "Rubik", sans-serif;
 }
 
 .button1 {
     width: 140px;
     height: 60px;
-
     position: absolute;
     top: 25px;
     right: 25px;
-
     background-color: #1d3557;
-
     border-radius: 5px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center
-}
-
-.submit-button{
-    width: 140px;
-    height: 60px;
-
-    background-color: #a8dadc;
-
-    border-radius: 5px;
-    border: none;
-
-    font-size: 20px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-self: center;
+}
 
+.submit-button {
+    width: 140px;
+    height: 60px;
+    background-color: #a8dadc;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 30px;
     margin-bottom: 30px;
+    color: #1d3557;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
 
 .text1 {
     color: white;
-
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
 }
 
-
-.entry-form-div{
-    height: 500px;
+.entry-form-div, 
+.register-form-div {
+    height: auto;
+    min-height: 500px;
     width: 600px;
-
     position: absolute;
     align-self: center;
-
-    top: 20%;
-
+    top: 15%;
     background-color: #457b9d;
-
-    border: none;
     border-radius: 15px;
-
     margin-left: auto;
     margin-right: auto;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
 }
 
 .form-input {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: 50px;
-
     background-color: #457b9d;
-
     border: solid;
     border-radius: 5px;
     border-color: #1d3557;
     color: #f1faee;
-
     font-size: 18px;
-
     padding-left: 10px;
+    margin-top: 5px;
 }
 
 input::placeholder {
-  color: #f1faee;
+    color: #f1faee;
 }
