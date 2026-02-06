@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+reports/
+__MACOSX/
+.DS_Store
+.env
+.venv/
+venv/
+*.zip
