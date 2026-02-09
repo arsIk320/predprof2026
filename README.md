@@ -61,4 +61,4 @@ python app.py
 - Если нужно «с чистого листа» — удалите файл БД (`./data/canteen.db` в Docker‑режиме или `./canteen.db` при локальном запуске).
 
 ## Ссылка на видеоотчёт:
-https://vkvideo.ru/video-235866325_456239017
+https://vkvideo.ru/video-235866325_456239018
