@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      FLASK_SECRET_KEY: "predprof2026"
+      FLASK_SECRET_KEY: "predprof"
       CANTEEN_DB: "/data/canteen.db"
       CANTEEN_REPORTS_DIR: "/data/reports"
       WORKERS: "1"
