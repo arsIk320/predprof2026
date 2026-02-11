@@ -43,7 +43,7 @@ cd predprof
 docker-compose up --build
 ```
 
-Открыть в браузере: **http://localhost:8000**
+Открыть в браузере: **http://localhost:8080**
 
 Данные сохраняются в: - `./data/canteen.db` - `./data/reports/`
 
