@@ -68,3 +68,6 @@ python app.py
 -   Повар: `cook1` / `password123`
 -   Администратор: `admin1` / `password123`
 
+## Видео-демонстрация
+
+https://vkvideo.ru/video-235866325_456239018
