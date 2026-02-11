@@ -1,7 +1,7 @@
 # Docker
 
 ## Требования
-- Установлен **Docker Desktop** (macOS).
+- Установлен **Docker Desktop**.
 
 ## Запуск
 ```bash
