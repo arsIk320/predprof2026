@@ -70,4 +70,4 @@ python app.py
 
 ## Видео-демонстрация
 
-https://vkvideo.ru/video-235866325_456239018
+https://vkvideo.ru/video-235866325_456239019
